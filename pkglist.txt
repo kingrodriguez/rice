@@ -1,7 +1,8 @@
 alacritty
 bpytop
 cmatrix
-conky
+conky-lua
+conky-manager
 figlet
 firefox
 lightdm
