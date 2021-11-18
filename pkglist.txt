@@ -2,9 +2,9 @@ alacritty
 bpytop
 cmatrix
 conky-lua
-conky-manager
 figlet
 firefox
+hddtemp
 lightdm
 lolcat
 neofetch
@@ -18,6 +18,7 @@ ttf-dejavu
 ttf-font-icons
 unzip
 vim
+vnstat
 zsh
 zsh-autosuggestions
 zsh-completions

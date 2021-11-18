@@ -1,0 +1,106 @@
+ conky.config = {
+
+--######################
+-- - Update settings - #
+--######################
+
+	update_interval = 2.0,
+	total_run_times = 0,
+	net_avg_samples = 2,
+	cpu_avg_samples = 2,
+
+	double_buffer = true,
+	no_buffers = true,
+
+--####################
+-- - Text settings - #
+--####################
+
+	use_xft = true,
+	font = 'Ubuntu:size=12',
+	override_utf8_locale = true,
+
+	default_color = '#cccccc',
+	color0 = 'darkgrey',
+	color1 = '#77507b',
+	color2 = 'white',
+	color3 = '#35805f',
+	color4 = '#4e4141',
+
+--############################
+-- - Window specifications - #
+--############################
+
+    background = true,
+
+	own_window_class = 'Conky',
+	own_window = true,
+	own_window_type = 'override',
+	own_window_argb_visual = true,
+	own_window_transparent = true,
+	own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
+
+	alignment = 'top_right',
+	gap_x = 40,
+	gap_y = 40,
+	minimum_width = 250, minimum_height = 600,
+	maximum_width = 250,
+
+	draw_shades = false,
+
+};
+
+conky.text = [[
+# DATE
+${voffset -8}$alignr$color${font :size=38}${time %e}$font
+$color${voffset -30}$color${font :size=18}${time %b}$font
+
+# SYSTEM INFO
+${color3}${font :BOLD:}SYSTEM $hr${color}${font}
+${goto 32}${color0}Kernel: ${alignr}${color2}${kernel}${color}
+
+# CPU
+${goto 32}${color0}CPU : ${color1}${goto 100}${font :BOLD:}${cpu cpu0}%${alignr}${freq_g cpu0} GHz${font}${color}
+${color4}${goto 60}${top name 1}${alignr}${top cpu 1}
+${goto 60}${top name 2}${alignr}${top cpu 2}
+${goto 60}${top name 3}${alignr}${top cpu 3}
+
+# RAM
+${goto 32}${color0}RAM : ${font :BOLD:}${color1}${goto 100}$memperc%${alignr}${mem}${font}
+${color4}${goto 60}${top_mem name 1}${alignr}${top_mem mem 1}
+${goto 60}${top_mem name 2}${alignr}${top_mem mem 2}
+${goto 60}${top_mem name 3}${alignr}${top_mem mem 3}
+
+# HDD
+${color3}${font :BOLD:}DATA $hr${color}${font}
+${goto 32}${color0}System total : ${goto 155}${fs_size /}
+${goto 32}${color0}System used : ${goto 155}${color1}${font :BOLD:}${fs_used /}${color}${font}
+
+# NETWORK
+${color3}${font :BOLD:}NETWORK $hr${color}${font}
+${goto 32}${color0}Public IP: ${alignr}${color2}${execi 30 wget -q -O - checkip.dyndns.org | sed -e 's/[^[:digit:]\|.]//g'}
+
+${goto 32}${color0}Local Network: ${alignr}${color2}${addr enp0s3}
+${goto 32}${color0}Up: ${color1}${goto 100}${upspeed enp0s3}${color}
+${goto 32}${color0}Down: ${color1}${goto 100}${downspeed enp0s3}${color}
+${if_up tun0}
+${goto 32}${color0}VPN: ${alignr}${color2}${addr tun0}
+${goto 32}${color0}Up: ${color1}${goto 100}${upspeed tun0}${color}
+${goto 32}${color0}Down: ${color1}${goto 100}${downspeed tun0}${color}
+${endif}
+${goto 32}${color0}${font}Connections    ${color}${font}${alignc}${color0}IN: ${color1}${tcp_portmon 1 32767 count}${alignr}${color0}OUT: ${color1}${tcp_portmon 32768 61000 count}
+# Connection list
+
+${goto 32}${color0}Remote IP:Port${alignr}Local Port
+${goto 32}${hr}
+${if_match "${tcp_portmon 1 65535 lport 0}">""}${goto 32}${color0}${tcp_portmon 1 65535 rip 0}:${tcp_portmon 1 65535 rport 0}${alignr}${tcp_portmon 1 65535 lport 0}${endif}
+${if_match "${tcp_portmon 1 65535 lport 1}">""}${goto 32}${color0}${tcp_portmon 1 65535 rip 1}:${tcp_portmon 1 65535 rport 1}${alignr}${tcp_portmon 1 65535 lport 1}${endif}
+${if_match "${tcp_portmon 1 65535 lport 2}">""}${goto 32}${color0}${tcp_portmon 1 65535 rip 2}:${tcp_portmon 1 65535 rport 2}${alignr}${tcp_portmon 1 65535 lport 2}${endif}
+${if_match "${tcp_portmon 1 65535 lport 3}">""}${goto 32}${color0}${tcp_portmon 1 65535 rip 3}:${tcp_portmon 1 65535 rport 3}${alignr}${tcp_portmon 1 65535 lport 3}${endif}
+${if_match "${tcp_portmon 1 65535 lport 4}">""}${goto 32}${color0}${tcp_portmon 1 65535 rip 4}:${tcp_portmon 1 65535 rport 4}${alignr}${tcp_portmon 1 65535 lport 4}${endif}
+${if_match "${tcp_portmon 1 65535 lport 5}">""}${goto 32}${color0}${tcp_portmon 1 65535 rip 5}:${tcp_portmon 1 65535 rport 5}${alignr}${tcp_portmon 1 65535 lport 5}${endif}
+${if_match "${tcp_portmon 1 65535 lport 6}">""}${goto 32}${color0}${tcp_portmon 1 65535 rip 6}:${tcp_portmon 1 65535 rport 6}${alignr}${tcp_portmon 1 65535 lport 6}${endif}
+${if_match "${tcp_portmon 1 65535 lport 7}">""}${goto 32}${color0}${tcp_portmon 1 65535 rip 7}:${tcp_portmon 1 65535 rport 7}${alignr}${tcp_portmon 1 65535 lport 7}${endif}
+${if_match "${tcp_portmon 1 65535 lport 8}">""}${goto 32}${color0}${tcp_portmon 1 65535 rip 8}:${tcp_portmon 1 65535 rport 8}${alignr}${tcp_portmon 1 65535 lport 8}${endif}
+${if_match "${tcp_portmon 1 65535 lport 9}">""}${goto 32}And more...${endif}
+]];
